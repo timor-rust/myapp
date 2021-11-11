@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Rainbow from "../hoc/Rainbow";
 
 class Garage extends Component {
   render() {
@@ -22,4 +23,4 @@ class Garage extends Component {
   }
 }
 
-export default Garage;
+export default Rainbow(Garage);
