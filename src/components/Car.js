@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 
 class Car extends Component {
-	//<Car brand="Ferrari" model="Testa rocca" color="Red"></Car>
 
 	render() {
 		console.log(this.props);
