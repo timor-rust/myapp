@@ -2,10 +2,13 @@ import React, { Component } from "react";
 //import Car from "./components/Car";
 import Garage from "./components/Garage";
 import AddCar from "./components/AddCar";
+import { connect } from "react-redux";
+import { delete_car_action } from './actions/delete_car'
 
 class App extends Component {
   static my_car_seq = 4;
-  state = {
+  /*
+	state = {
     my_cars: [
       { brand: "Honda", model: "Civic", color: "Black", year: 2018, id: 1 },
       { brand: "Toyota", model: "Kamry", color: "White", year: 2019, id: 2 },
@@ -18,6 +21,7 @@ class App extends Component {
       },
     ],
   };
+ */
 
   addCar = new_car => {
     const new_arr = [...this.state.my_cars];
@@ -25,14 +29,19 @@ class App extends Component {
     this.setState({
       my_cars: new_arr,
     });
-	};
-	
-	deleteCar = (_id) => {
-		const new_cars = this.state.my_cars.filter(car => car.id !== _id)
-		this.setState({
-			my_cars: new_cars
-		})
-	}
+  };
+
+  deleteCar = _id => {
+    /*
+    const new_cars = this.state.my_cars.filter(car => car.id !== _id);
+    this.setState({
+      my_cars: new_cars,
+    });
+	 */
+	  
+	  this.props.delete_car(_id);
+	  console.log(this.props);
+  };
 
   render() {
     return (
@@ -40,7 +49,7 @@ class App extends Component {
         <header className="App-header">
           <p>Garage!</p>
           <hr />
-				 <Garage cars={this.state.my_cars} delete_car={this.deleteCar}/>
+          <Garage cars={this.props.my_cars} delete_car={this.deleteCar} />
           <AddCar addCar={this.addCar} />
         </header>
       </div>
@@ -48,4 +57,25 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (store_state, current_props) => {
+  console.log("=============== mapper own props ");
+  console.log(current_props);
+  console.log("=============== state ");
+  console.log(store_state);
+  return {
+    ...current_props,
+    my_cars: store_state.my_cars,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // delete_car: _id => {
+    //   console.log("hello world");
+    // },
+    // delete_car: id => dispatch({ type: "DELETE_CAR", car_id: id }),
+    delete_car: id => dispatch(delete_car_action(id))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
