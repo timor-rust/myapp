@@ -9,7 +9,8 @@ const init_state = {
       year: 2020,
       id: 3,
     },
-  ],
+	],
+	my_car_seq: 4
 };
 
 const garageReducer = (reducer_state = init_state, action) => {
@@ -25,7 +26,15 @@ const garageReducer = (reducer_state = init_state, action) => {
       ...reducer_state,
       my_cars: new_cars,
     };
-  }
+	}
+  else if (action.type === 'ADD_CAR') {
+	  const new_arr = [...reducer_state.my_cars]
+	  new_arr.push({ ...action.new_car, id: reducer_state.my_car_seq++ })
+	  return {
+		  ...reducer_state,
+		  my_cars: new_arr
+	  }
+	}
   return reducer_state;
 };
 

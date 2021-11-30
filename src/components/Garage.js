@@ -16,7 +16,10 @@ class Garage extends Component {
 
           <hr />
         </div>
-      ) : null;
+		) : <div key={_car.id}>
+				<p>not presenting car before 2017 ...</p>
+				<br />
+		</div>
     });
     return <div>{cars_list}</div>;
   }

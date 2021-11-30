@@ -3,10 +3,10 @@ import React, { Component } from "react";
 import Garage from "./components/Garage";
 import AddCar from "./components/AddCar";
 import { connect } from "react-redux";
-import { delete_car_action } from './actions/delete_car'
+import { delete_car_action } from "./actions/delete_car";
+import { add_car_action } from "./actions/add_car";
 
 class App extends Component {
-  static my_car_seq = 4;
   /*
 	state = {
     my_cars: [
@@ -24,11 +24,15 @@ class App extends Component {
  */
 
   addCar = new_car => {
+    /*
     const new_arr = [...this.state.my_cars];
     new_arr.push({ ...new_car, id: App.my_car_seq++ });
     this.setState({
       my_cars: new_arr,
     });
+	 */
+    console.log(this.props);
+    this.props.add_car(new_car);
   };
 
   deleteCar = _id => {
@@ -38,9 +42,9 @@ class App extends Component {
       my_cars: new_cars,
     });
 	 */
-	  
-	  this.props.delete_car(_id);
-	  console.log(this.props);
+
+    this.props.delete_car(_id);
+    console.log(this.props);
   };
 
   render() {
@@ -74,7 +78,8 @@ const mapDispatchToProps = dispatch => {
     //   console.log("hello world");
     // },
     // delete_car: id => dispatch({ type: "DELETE_CAR", car_id: id }),
-    delete_car: id => dispatch(delete_car_action(id))
+    delete_car: id => dispatch(delete_car_action(id)),
+    add_car: new_car => dispatch(add_car_action(new_car)),
   };
 };
 
